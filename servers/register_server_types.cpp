@@ -45,6 +45,7 @@
 #include "servers/audio/effects/audio_effect_delay.h"
 #include "servers/audio/effects/audio_effect_distortion.h"
 #include "servers/audio/effects/audio_effect_eq.h"
+#include "servers/audio/effects/audio_effect_expander.h"
 #include "servers/audio/effects/audio_effect_filter.h"
 #include "servers/audio/effects/audio_effect_hard_limiter.h"
 #include "servers/audio/effects/audio_effect_panner.h"

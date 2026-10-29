@@ -916,6 +916,9 @@ void AudioServer::_update_bus_effects(int p_bus) {
 			if (Object::cast_to<AudioEffectCompressorInstance>(*fx)) {
 				Object::cast_to<AudioEffectCompressorInstance>(*fx)->set_current_channel(i);
 			}
+			else if (Object::cast_to<AudioEffectExpanderInstance>(*fx)) {
+				Object::cast_to<AudioEffectExpanderInstance>(*fx)->set_current_channel(i);
+			}
 			buses.write[p_bus]->channels.write[i].effect_instances.write[j] = fx;
 		}
 	}

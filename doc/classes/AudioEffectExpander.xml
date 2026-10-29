@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="AudioEffectExpander" inherits="AudioEffect" api_type="core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
+	<brief_description>
+		Adds an expander audio effect to an audio bus.
+		Allows control of the dynamic range via a volume threshold and timing controls.
+	</brief_description>
+	<description>
+		An expander can either be "upward" or "downward", specified by the value of the "range" property (in dB): 
+		- "Upward", set by a positive range, increases the volume of sounds when they rise above a certain volume threshold level.
+		- "Downward", set by a negative range, decreases the volume of sounds when they fall below a certain volume threshold level.
+		An upward expander can have many uses in a mix:
+		- To increase the dynamic range, or "punchiness", of a bus or audio clip, emphasizing louder sounds.
+		- To sidechain, using another bus as a trigger. This increases the volume of the bus the expander is attached to, by using the volume from another audio bus for threshold detection. This technique can be used to consistently "combine" a softer, more pervasive sound, such as vinyl static or an electric hum, with a more transient decaying sound, such as a drum hit or gunshot.
+		A Downward expander can have many uses in a mix:
+		- To decrease the volume of the quiet parts of a bus or audio clip, preserving the louder parts while reducing background or low-level noise.
+		- To sidechain, using another bus as a trigger. This decreases the volume of the bus the expander is attached to, by using the volume from another audio bus for threshold detection. This technique can be used to consistently "combine" a louder, more transient sound, such as a drum hit or gunshot, with a softer, more pervasive sound, such as vinyl static or an electric hum.
+		- At the extreme, a downward expander can be used as a noise gate, completely silencing audio that falls below the volume threshold level.
+		A note on AudioEffectExpander's "attack" and "release" properties:
+		- This is a design choice with the goal of reacting swiftly to transients while preventing sudden "jumps" of decaying audio, which can be jarring to the listener. This means "easing out" of upward expansion, and "easing into" downward expansion with the longer "Release" times. 
+		- In "upward" mode, attack and release function as expected: attack is the time it takes for the expander to increase the volume of audio that passes above the volume threshold level, and release is the time it takes for the expander to decrease the volume of audio that falls below the volume threshold level.
+		- In "downward" mode, attack and release are reversed: attack is the time it takes for the expander to "turn off" the volume reduction, and release is the time it takes for the expander to re-engage.  
+	</description>
+	<tutorials>
+		<link title="Audio buses">$DOCS_URL/tutorials/audio/audio_buses.html</link>
+		<link title="Audio effects">$DOCS_URL/tutorials/audio/audio_effects.html</link>
+	</tutorials>
+	<members>
+		<member name="attack_us" type="float" setter="set_attack_us" getter="get_attack_us" default="20.0">
+			Upward: Expander's reaction time when the audio passes the volume threshold level, in microseconds. Value can range from 20 to 2000.
+			Downward: Expander's release time when the audio passes above the volume threshold level, in microseconds. Value can range from 20 to 2000.
+		</member>
+		<member name="gain" type="float" setter="set_gain" getter="get_gain" default="0.0">
+			Gain of the audio signal, in dB. Value can range from -20 to 20.
+		</member>
+		<member name="mix" type="float" setter="set_mix" getter="get_mix" default="1.0">
+			Balance between the original audio and the compressed audio. Value can range from 0 (totally dry) to 1 (totally wet).
+		</member>
+		<member name="ratio" type="float" setter="set_ratio" getter="get_ratio" default="4.0">
+			Amount of expansion applied to the audio once it passes the volume threshold level. The higher the ratio, the stronger the expansion applied to audio signals that pass the volume threshold level. Value can range from 1 to 48.
+		</member>
+		<member name="release_ms" type="float" setter="set_release_ms" getter="get_release_ms" default="250.0">
+			Upward: Expander's release time when the audio passes the volume threshold level, in milliseconds. Value can range from 20 to 2000.
+			Downward: Expander's delay time to re-engage after passing below the volume threshold level, in milliseconds. Value can range from 20 to 2000.
+		</member>
+		<member name="sidechain" type="StringName" setter="set_sidechain" getter="get_sidechain" default="&amp;&quot;&quot;">
+			Audio bus to use for the volume threshold detection.
+		</member>
+		<member name="threshold" type="float" setter="set_threshold" getter="get_threshold" default="0.0">
+			The volume level at which expansion is applied to the audio, in dB. Value can range from -60 to 0.
+		</member>
+		<member name="range" type="float" setter="set_range" getter="get_range" default="6.0">
+			The maximum amount of volume change applied to the audio once it passes the volume threshold level, in dB. Value can range from -30 to 30. Negative values will operate as a downward expander, while positive values will operate as an upward expander.
+		</member>
+	</members>
+</class>
