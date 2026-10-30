@@ -216,6 +216,7 @@ void register_server_types() {
 		GDREGISTER_CLASS(AudioEffectChorus);
 		GDREGISTER_CLASS(AudioEffectDelay);
 		GDREGISTER_CLASS(AudioEffectCompressor);
+		GDREGISTER_CLASS(AudioEffectExpander);
 		GDREGISTER_CLASS(AudioEffectHardLimiter);
 		GDREGISTER_CLASS(AudioEffectPitchShift);
 		GDREGISTER_CLASS(AudioEffectPhaser);
